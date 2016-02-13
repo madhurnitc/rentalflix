@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
  */
 public class MovieServiceTest {
     static MovieService  ms;
+    
 	@BeforeClass
 	public static void createTestMovieDB() {
 		ms = new MovieService();
@@ -23,6 +24,7 @@ public class MovieServiceTest {
 			ms.create(movie);
 		}
 	}
+	
 	@Test
 	public void testCreateMovie() {
 		int actualAllMovieCount = ms.findByName("LOTR").size();
@@ -41,11 +43,13 @@ public class MovieServiceTest {
 		int actualMovieCount = ms.findByName("LOTR").size();
 		Assert.assertEquals(3, actualMovieCount);
 	}
+	
 	@Test 
 	public void negativeTestFindByName(){
 		int actualMovieCount = ms.findByName("Dark").size();
 		Assert.assertEquals(0, actualMovieCount);
 	}
+	
 	@Test 
 	public void testUpdate() {
 		Movie actualMovie = new Movie(1, "LOTR", "2004", "ENG");

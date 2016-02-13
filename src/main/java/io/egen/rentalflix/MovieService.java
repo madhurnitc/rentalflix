@@ -14,16 +14,20 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MovieService implements IFlix {
 
 	private ConcurrentHashMap<Integer, Movie> moviesDatabase;
+	
 	public  MovieService() {
 		// TODO Auto-generated constructor stub
 		
 		moviesDatabase = new ConcurrentHashMap<Integer,Movie>();
 	}
+	
 	@Override
 	public List<Movie> findAll() {
 		// TODO Auto-generated method stub
+		
 		List<Movie> allMovieList = new ArrayList<Movie>();
 		Iterator<Entry<Integer, Movie>> itr = moviesDatabase.entrySet().iterator();
+		
 		while(itr.hasNext()) {
 			Map.Entry<Integer, Movie> entry = itr.next();
 			Movie movie = entry.getValue();
@@ -35,6 +39,7 @@ public class MovieService implements IFlix {
 	@Override
 	public List<Movie> findByName(String name) {
 		// TODO Auto-generated method stub
+		
 		List<Movie> movieList = new ArrayList<Movie>();
 		Iterator<Entry<Integer, Movie>> itr = moviesDatabase.entrySet().iterator();
 		while(itr.hasNext()) {
@@ -48,6 +53,7 @@ public class MovieService implements IFlix {
 	@Override
 	public Movie create(Movie movie) {
 		// TODO Auto-generated method stub
+		
 		int id = movie.getId();
 		moviesDatabase.put(id, movie);
 		return movie;
@@ -56,6 +62,7 @@ public class MovieService implements IFlix {
 	@Override
 	public Movie update(Movie movie) {
 		// TODO Auto-generated method stub
+		
 		int id = movie.getId();
 		Movie movieToUpdate = moviesDatabase.get(id);
 		
@@ -68,6 +75,7 @@ public class MovieService implements IFlix {
 	@Override
 	public Movie delete(int id) {
 		// TODO Auto-generated method stub
+		
 		Movie movieToDelete = moviesDatabase.get(id);
 		
 		if ( movieToDelete == null ) throw new IllegalArgumentException("Movie doesn't exist in Database");
@@ -79,6 +87,7 @@ public class MovieService implements IFlix {
 	@Override
 	public boolean rentMovie(int movieId, String user) {
 		// TODO Auto-generated method stub
+		
 		Movie movieToRent = moviesDatabase.get(movieId);
 		if ( movieToRent == null || movieToRent.isRented() ) throw new IllegalArgumentException("Movie doesn't exist in Database or is already rented"); 
 		
