@@ -3,6 +3,7 @@ package io.egen.rentalflix;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,7 +25,8 @@ public class MovieService implements IFlix {
 		List<Movie> allMovieList = new ArrayList<Movie>();
 		Iterator<Entry<Integer, Movie>> itr = moviesDatabase.entrySet().iterator();
 		while(itr.hasNext()) {
-			Movie movie = (Movie) itr.next();
+			Map.Entry<Integer, Movie> entry = itr.next();
+			Movie movie = entry.getValue();
 			allMovieList.add(movie);
 		}
 		return allMovieList;
@@ -36,8 +38,9 @@ public class MovieService implements IFlix {
 		List<Movie> movieList = new ArrayList<Movie>();
 		Iterator<Entry<Integer, Movie>> itr = moviesDatabase.entrySet().iterator();
 		while(itr.hasNext()) {
-			Movie movie = (Movie) itr.next();
-			if( movie.getTitle().contains(name) ) movieList.add(movie);
+			Map.Entry<Integer, Movie> entry = itr.next();
+			Movie movie = entry.getValue();
+			if (movie.getTitle().contains(name)) movieList.add(movie);
 		}
 		return movieList;
 	}
@@ -59,7 +62,7 @@ public class MovieService implements IFlix {
 		if ( movieToUpdate == null ) throw new IllegalArgumentException("Movie doesn't exist in Database");
 		else moviesDatabase.put(id, movie);
 		
-		return movie;
+		return moviesDatabase.get(id);
 	}
 
 	@Override
